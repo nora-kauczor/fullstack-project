@@ -7,10 +7,10 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class GroceriesService {
-    private final GroceriesRepo groceriesRepo;
+public class GroceryService {
+    private final GroceryRepo groceryRepo;
 
     public List<Grocery> getAllGroceries(){
-        return groceriesRepo.findAll();
+        return groceryRepo.findAll();
     }
 }
