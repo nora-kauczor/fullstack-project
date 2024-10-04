@@ -6,8 +6,4 @@ EXPOSE 8080
 ADD backend/target/fullstack.jar fullstack.jar
 # entrypoint takes array of commands to auto-execute in console
 # (spaces auto-inserted between elements)
-ENTRYPOINT ["java", "-jar", "fullstack.jar" ]
-
-
-# LABEL authors="marleneanton"
-# ENTRYPOINT ["top", "-b"]
+ENTRYPOINT ["java -jar fullstack.jar"]
