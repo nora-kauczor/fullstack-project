@@ -5,10 +5,10 @@ type Props = {
     groceries: Grocery[]
 }
 
-export default function GroceryList(props:Props){
+export default function GroceryList(props:Readonly<Props>){
     return (
-        <>
-            {props.groceries.map(grocery => <GroceryCard grocery={grocery}/>)}
-        </>
+        <div id="grocery-list">
+            {props.groceries.map(grocery => <GroceryCard grocery={grocery} key={grocery.id}/>)}
+        </div>
     )
 }
