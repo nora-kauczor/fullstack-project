@@ -1,9 +1,13 @@
 import GroceryList from "./GroceryList.tsx";
+import {Grocery} from "../types/Grocery.ts";
 
-export default function AllProductsPage(){
+type Props ={
+    groceries: Grocery[]
+}
+export default function AllProductsPage(props:Props){
     return (
         <>
-            <GroceryList/>
+            <GroceryList groceries={props.groceries}/>
         </>
     )
 }
