@@ -6,6 +6,8 @@ type Props = {
 }
 
 export default function GroceryCard(props:Readonly<Props>) {
+
+
     return (
         <article id={"grocery-card"}>
             <input id={"grocery-card-counter"} type={"number"} min={"0"} max={"100"}
