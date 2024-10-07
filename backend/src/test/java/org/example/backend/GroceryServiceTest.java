@@ -12,7 +12,7 @@ class GroceryServiceTest {
 
     @Test
     void getAllGroceries_shouldReturnCorrectList_whenItemsExist() {
-        Grocery apple = new Grocery("01", "Apple", 0.5);
+        Grocery apple = new Grocery("01", "Apple", 0.5, 0);
         List<Grocery> testGroceries = List.of(apple);
 
         when(mockGroceryRepo.findAll()).thenReturn(testGroceries);
