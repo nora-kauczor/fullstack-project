@@ -14,7 +14,7 @@ public class SelectedItemController {
     private final SelectedItemService selectedItemService;
 
     @GetMapping
-    public List<SelectedItem> getAllGroceries(){
-        return selectedItemService.getAllGroceries();
+    public List<SelectedItem> getAllSelectedItems(){
+        return selectedItemService.getAllSelectedItems();
     }
 }
