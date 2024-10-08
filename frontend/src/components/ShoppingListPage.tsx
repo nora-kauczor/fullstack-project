@@ -14,7 +14,7 @@ export default function ShoppingListPage(props: Readonly<Props>) {
             .reduce((a,b) => a + b, 0)
     }
     return (<div id="all-products-page">
-            <GroceryList groceries={props.groceries.filter(grocery => grocery.quantity > 0)} updateQuantity={props.updateQuantity}/>
+            <GroceryList groceries={props.groceries.filter(grocery => grocery.quantity > 0)} isShoppingList={true} updateQuantity={props.updateQuantity}/>
             <p>{total.toFixed(2)} €</p>
         </div>
             )
