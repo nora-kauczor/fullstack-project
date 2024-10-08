@@ -7,7 +7,7 @@ type Props = {
 }
 export default function AllProductsPage(props:Readonly<Props>){
     return (<div id="all-products-page">
-            <GroceryList groceries={props.groceries} updateQuantity={props.updateQuantity}/>
+            <GroceryList groceries={props.groceries} isShoppingList={false} updateQuantity={props.updateQuantity}/>
         </div>
     )
 }
