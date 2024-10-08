@@ -28,14 +28,14 @@ class GroceryControllerTest {
         groceryRepo.save(apple);
         mvc.perform(MockMvcRequestBuilders.get("/api/groceries")).andExpect(status().isOk())
                 .andExpect(content().json("""
-                    [
-                    {
-                        "id": "01",
-                        "name": "Apple",
-                        "price": 0.5,
-                        "quantity": 0
-                    }]
-                """));
+                            [
+                            {
+                                "id": "01",
+                                "name": "Apple",
+                                "price": 0.5,
+                                "quantity": 0
+                            }]
+                        """));
     }
 
     @DirtiesContext
@@ -55,6 +55,7 @@ class GroceryControllerTest {
                         """));
     }
 
+
     @DirtiesContext
     @Test
     void updateQuantity() throws Exception {
@@ -62,7 +63,7 @@ class GroceryControllerTest {
         groceryRepo.save(apple);
         mvc.perform(MockMvcRequestBuilders.put("/api/groceries/update/1?quantity=4")).andExpect(status().isOk())
                 .andExpect(content().json("""
-                      
+                        
                                     {
                                         "id": "1",
                                         "name": "Apple",
@@ -72,5 +73,13 @@ class GroceryControllerTest {
                         """));
     }
 
+    @DirtiesContext
+    @Test
+    void getGroceryById_shouldCauseErrorMessageOutput_whenCalledWithInvalidId() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/api/groceries/39")).andExpect(status().isNotFound())
+                .andExpect(content().json("""
+                       { "message": "ID not found."}
+                       """));
+    }
 
 }
