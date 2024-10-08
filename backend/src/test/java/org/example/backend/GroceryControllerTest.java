@@ -24,9 +24,10 @@ class GroceryControllerTest {
     @DirtiesContext
     @Test
     void getAllGroceries() throws Exception {
-        Grocery apple = new Grocery("01", "Apple", 0.5);
+        Grocery apple = new Grocery("01", "Apple", 0.5, 0);
         groceryRepo.save(apple);
-        mvc.perform(MockMvcRequestBuilders.get("/api/groceries")).andExpect(status().isOk()).andExpect(content().json("""
+        mvc.perform(MockMvcRequestBuilders.get("/api/groceries")).andExpect(status().isOk())
+                .andExpect(content().json("""
                     [
                     {
                         "id": "01",

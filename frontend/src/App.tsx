@@ -14,13 +14,13 @@ function App() {
             .catch(error => console.error(error))
     }
     useEffect(() => getAllGroceries(), [])
+
   return (
     <>
-        <AllProductsPage groceries={groceries}/>
-      <Routes>
+        <Routes>
           <Route path={"/"} element={<AllProductsPage groceries={groceries}/>}/>
-          <Route path={"/shoppinglist"} element={<ShoppingListPage/>}/>
-      </Routes>
+          <Route path={"/shoppinglist"} element={<ShoppingListPage groceries={groceries}/>}/>
+        </Routes>
     </>
   )
 }

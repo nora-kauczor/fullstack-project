@@ -8,7 +8,8 @@ type Props = {
 export default function GroceryList(props:Readonly<Props>){
     return (
         <div id="grocery-list">
-            {props.groceries.map(grocery => <GroceryCard grocery={grocery} key={grocery.id}/>)}
+            {props.groceries
+                .map(grocery => <GroceryCard grocery={grocery} key={grocery.id}/>)}
         </div>
     )
 }
