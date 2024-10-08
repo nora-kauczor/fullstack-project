@@ -32,8 +32,45 @@ class GroceryControllerTest {
                     {
                         "id": "01",
                         "name": "Apple",
-                        "price": 0.5
+                        "price": 0.5,
+                        "quantity": 0
                     }]
                 """));
     }
+
+    @DirtiesContext
+    @Test
+    void getGroceryById() throws Exception {
+        Grocery apple = new Grocery("1", "Apple", 0.5, 0);
+        groceryRepo.save(apple);
+        mvc.perform(MockMvcRequestBuilders.get("/api/groceries/1")).andExpect(status().isOk())
+                .andExpect(content().json("""
+                        
+                                    {
+                                        "id": "1",
+                                        "name": "Apple",
+                                        "price": 0.5,
+                                        "quantity": 0
+                                    }
+                        """));
+    }
+
+    @DirtiesContext
+    @Test
+    void updateQuantity() throws Exception {
+        Grocery apple = new Grocery("1", "Apple", 0.5, 0);
+        groceryRepo.save(apple);
+        mvc.perform(MockMvcRequestBuilders.put("/api/groceries/update/1?quantity=4")).andExpect(status().isOk())
+                .andExpect(content().json("""
+                      
+                                    {
+                                        "id": "1",
+                                        "name": "Apple",
+                                        "price": 0.5,
+                                        "quantity": 4
+                                    }
+                        """));
+    }
+
+
 }

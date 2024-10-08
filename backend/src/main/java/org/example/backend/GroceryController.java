@@ -1,9 +1,7 @@
 package org.example.backend;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,5 +16,14 @@ public class GroceryController {
         return groceryService.getAllGroceries();
     }
 
+    @GetMapping("/{groceryId}")
+    public Grocery getGroceryById(@PathVariable String groceryId){
+        return groceryService.getGroceryById(groceryId);
+    }
 
+
+    @PutMapping("/update/{groceryId}")
+    public Grocery updateQuantity(@PathVariable String groceryId, @RequestParam int quantity) {
+        return groceryService.updateQuantity(groceryId, quantity);
+    }
 }
