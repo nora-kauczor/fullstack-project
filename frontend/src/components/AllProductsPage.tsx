@@ -2,11 +2,12 @@ import GroceryList from "./GroceryList.tsx";
 import {Grocery} from "../types/Grocery.ts";
 
 type Props = {
-    groceries: Grocery[]
+    groceries: Grocery[],
+    updateQuantity: (groceryId:string, newQuantity:number) => void
 }
 export default function AllProductsPage(props:Readonly<Props>){
     return (<div id="all-products-page">
-            <GroceryList groceries={props.groceries}/>
+            <GroceryList groceries={props.groceries} updateQuantity={props.updateQuantity}/>
         </div>
     )
 }
