@@ -15,11 +15,16 @@ function App() {
     }
     useEffect(() => getAllGroceries(), [])
 
+    const updateQuantity = (groceryId:string, newQuantity:number) => {
+        axios.put("/api/groceries/update/" + groceryId + "?quantity=" + newQuantity)
+            .then(() => getAllGroceries())
+            .catch(error => console.error(error))
+    }
   return (
     <>
         <Routes>
-          <Route path={"/"} element={<AllProductsPage groceries={groceries}/>}/>
-          <Route path={"/shoppinglist"} element={<ShoppingListPage groceries={groceries}/>}/>
+          <Route path={"/"} element={<AllProductsPage groceries={groceries} updateQuantity={updateQuantity}/>}/>
+          <Route path={"/shoppinglist"} element={<ShoppingListPage groceries={groceries} updateQuantity={updateQuantity}/>}/>
         </Routes>
     </>
   )

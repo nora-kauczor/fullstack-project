@@ -3,14 +3,17 @@ import './GroceryCard.css'
 import { useState} from "react";
 
 type Props = {
-    grocery: Grocery
+    grocery: Grocery,
+    updateQuantity: (groceryId:string, newQuantity:number) => void
 }
 
 export default function GroceryCard(props:Readonly<Props>) {
     const [quantityDisplay, setQuantityDisplay] = useState<number>(props.grocery.quantity)
     function handleChange(event:React.ChangeEvent<HTMLInputElement>){
         setQuantityDisplay(parseInt(event.target.value))
+        props.updateQuantity(props.grocery.id, parseInt(event.target.value))
     }
+
     return (
         <article id={"grocery-card"}>
             <input id={"grocery-card-counter"} value={quantityDisplay} onChange={handleChange} type={"number"} min={"0"} max={"100"}
