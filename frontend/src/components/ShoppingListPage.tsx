@@ -10,7 +10,7 @@ export default function ShoppingListPage(props: Readonly<Props>) {
     useEffect(() => {setTotal(calculateTotal())}, [props.groceries])
     function calculateTotal():number{
         return props.groceries.map(grocery => grocery.price * grocery.quantity)
-            .reduce((a,b) => a + b)
+            .reduce((a,b) => a + b, 0)
     }
     return (<div id="all-products-page">
             <GroceryList groceries={props.groceries.filter(grocery => grocery.quantity > 0) }/>
