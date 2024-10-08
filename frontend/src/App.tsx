@@ -17,7 +17,6 @@ function App() {
 
   return (
     <>
-        <AllProductsPage groceries={groceries}/>
         <Routes>
           <Route path={"/"} element={<AllProductsPage groceries={groceries}/>}/>
           <Route path={"/shoppinglist"} element={<ShoppingListPage groceries={groceries}/>}/>
