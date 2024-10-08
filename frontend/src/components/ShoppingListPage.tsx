@@ -7,7 +7,7 @@ type Props = {
 export default function ShoppingListPage(props: Readonly<Props>) {
 
     return (<div id="all-products-page">
-            <GroceryList groceries={props.groceries} selected={true}/>
+            <GroceryList groceries={props.groceries.filter(grocery => grocery.quantity > 0) }/>
         </div>
             )
    }
