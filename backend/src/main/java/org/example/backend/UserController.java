@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @GetMapping
-    public String getMe2(@AuthenticationPrincipal OAuth2User user)
+    public String getMe(@AuthenticationPrincipal OAuth2User user)
     {
-        return user.getAttributes()
+        return user == null ? "" : user.getAttributes()
                 .get("login")
                 .toString();
     }
