@@ -41,13 +41,18 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path={"/"} element={<AllProductsPage
-                    groceries={groceries}
-                    updateQuantity={updateQuantity}/>}/>
-                <Route path={"/shoppinglist"}
-                       element={<ShoppingListPage
+                <Route path={"/"}
+                       element={<AllProductsPage
                            groceries={groceries}
                            updateQuantity={updateQuantity}/>}/>
+                {userDisplay.length === 0 ?
+                    <Route path={"/shoppinglist"}
+                           element={<h2>Please log
+                               in to see the shopping list.</h2>}/> :
+                    <Route path={"/shoppinglist"}
+                           element={<ShoppingListPage
+                               groceries={groceries}
+                               updateQuantity={updateQuantity}/>}/>}
             </Routes>
             {userDisplay.length === 0 &&
                 <button onClick={login}>Login</button>}
