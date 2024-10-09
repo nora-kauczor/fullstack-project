@@ -2,7 +2,6 @@ package org.example.backend;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -19,9 +18,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/groceries/update/*").authenticated()
+                        .requestMatchers("/api/groceries").permitAll()
                         .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .oauth2Login(Customizer.withDefaults());
+                .oauth2Login(a -> a.defaultSuccessUrl("http://localhost:5173/"));
         return httpSecurity.build();
     }
 

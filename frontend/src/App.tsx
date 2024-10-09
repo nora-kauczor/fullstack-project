@@ -7,7 +7,7 @@ import AllProductsPage
     from "./components/AllProductsPage.tsx";
 import ShoppingListPage
     from "./components/ShoppingListPage.tsx";
-import {b} from "vite/dist/node/types.d-aGj9QkWt";
+
 
 function App() {
 
@@ -25,23 +25,18 @@ function App() {
             .catch(error => console.error(error))
     }
 
-    function handleClickTestSecurity(){
-        axios.get("/api/groceries/update/*")
-            .then(response => console.log(response.data))
-            .catch(error => console.error(error))
+    const [userDisplay, setUserDisplay] = useState<string>("")
+
+    function login() {
+        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
+        window.open(host + '/oauth2/authorization/github', '_self')
     }
 
-    function login():void{
-        const host:boolean = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
-        window.open(host+'/oauth2/authorization/github', '_self')
-    }
-
-
-
-
-    function getMe(){
+    useEffect(() => {
         axios.get("/api/groceries/auth/me")
-    }
+            .then(response => setUserDisplay(response.data))
+    }, []);
+
 
     return (
         <>
@@ -54,9 +49,10 @@ function App() {
                            groceries={groceries}
                            updateQuantity={updateQuantity}/>}/>
             </Routes>
-            <button onClick={handleClickTestSecurity}></button>
-            <button>Login</button>
-            <button>Me</button>
+            {userDisplay.length === 0 &&
+                <button onClick={login}>Login</button>}
+            {userDisplay.length > 0 &&
+                <p>You are logged in as {userDisplay}</p>}
         </>
     )
 }
