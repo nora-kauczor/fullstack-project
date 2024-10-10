@@ -7,7 +7,6 @@ import AllProductsPage
     from "./components/AllProductsPage.tsx";
 import ShoppingListPage
     from "./components/ShoppingListPage.tsx";
-import Login from "./components/Login.tsx";
 import ProtectedRoute
     from "./components/ProtectedRoute.tsx";
 import Navbar from "./components/Navbar.tsx";
@@ -43,16 +42,16 @@ function App() {
     const [userName, setUserName] = useState<string>("")
     useEffect(() => {
         axios.get("/api/groceries/auth/me")
-            .then(response => setUserName(response.data))
+            .then(response => {
+                setUserName(response.data)
+            })
     }, [userName]);
 
 
     return (
         <>
-            <Navbar login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>
+            <Navbar/>
             <Routes>
-                <Route path={"/"} element={<Login
-                    login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>}/>
                 <Route element={<ProtectedRoute userName={userName}/>}>
                     <Route path={"/allproducts"}
                            element={<AllProductsPage
@@ -66,11 +65,12 @@ function App() {
                                />}/>
                 </Route>
             </Routes>
-            {userName !== "anonymousUser" && userName != "" ?
-                <p>You are logged in as {userName}</p> :
-                <p>You are not logged in</p>}
+            {userName && userName !== "anonymousUser"
+                ? <> <p>You are logged in as {userName}</p> <button onClick={logout}>Logout</button> </>
+                : <> <p>You are not logged in</p>           <button onClick={login}>Login</button> </>
+            }
         </>
     )
 }
 
-export default App
+            export default App
