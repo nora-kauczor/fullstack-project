@@ -1,12 +1,11 @@
 type Props = {
     login: () => void
-    // .....
 }
 
 
 
-export default function LoginPage({login}: LoginPageProps) {
+export default function LoginPage(props: Readonly<Props>) {
     return (
-        <button onClick={login}>Login</button>
+        <button onClick={props.login}>Login</button>
     )
 }

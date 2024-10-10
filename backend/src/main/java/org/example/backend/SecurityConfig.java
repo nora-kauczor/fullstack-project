@@ -1,5 +1,6 @@
 package org.example.backend;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -13,23 +14,24 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Value("${APP_URL}")
+    private String appUrl;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
+        return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/groceries/update/*").authenticated()
                         .requestMatchers("/api/groceries").permitAll()
                         .anyRequest().permitAll())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .logout(logout -> logout.logoutSuccessUrl("http://localhost:5173/")
+                .sessionManagement(session -> session.sessionCreationPolicy(
+                        SessionCreationPolicy.ALWAYS))
+                .logout(logout -> logout
+                        .logoutSuccessUrl(appUrl)
                         .logoutUrl("/api/auth/logout"))
-                .oauth2Login(Customizer.withDefaults())
-
-
-        ;
-
-        return httpSecurity.build();
+                .oauth2Login(login -> login.defaultSuccessUrl(appUrl + "/shoppinglist"))
+                .build();
     }
 
 }

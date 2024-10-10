@@ -34,6 +34,7 @@ function App() {
     }
 
     function logout() {
+        setUserName("anonymousUser")
         const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
         window.open(host + '/api/auth/logout', '_self')
     }
@@ -48,12 +49,11 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path={"/"} element={<LoginPage
+                {/*{userName === "anonymousUser" || !userName && */}
+                    <Route path={"/"} element={<LoginPage
                     login={login}/>}/>
-
-                <Route path={"/"} element={<ProtectedRoute
-                    userName={userName}
-                />}>
+                 {/*}*/}
+                <Route element={<ProtectedRoute userName={userName}/>}>
                     <Route path={"/allproducts"}
                            element={<AllProductsPage
                                groceries={groceries}
@@ -68,6 +68,8 @@ function App() {
             </Routes>
             {userName !== "anonymousUser" && userName &&
                 <p>You are logged in as {userName}</p>}
+            {userName !== "anonymousUser" && userName &&
+                <button onClick={logout}>Logout</button>}
         </>
     )
 }

@@ -9,6 +9,6 @@ export default function ProtectedRoute(props: Readonly<Props>) {
 
 
     return (
-isUserLoggedIn ? <Outlet /> : <Navigate to={"/"}/>
+        isUserLoggedIn ? <Outlet/> : <Navigate to={"/"}/>
     )
 }
