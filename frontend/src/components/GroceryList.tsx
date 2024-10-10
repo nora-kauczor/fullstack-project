@@ -1,6 +1,6 @@
 import {Grocery} from "../types/Grocery.ts";
 import GroceryCard from "./GroceryCard.tsx";
-
+import './GroceryList.css'
 type Props = {
     groceries: Grocery[],
     updateQuantity: (groceryId:string, newQuantity:number) => void,

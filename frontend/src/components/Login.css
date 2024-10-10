@@ -1,0 +1,12 @@
+#login {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+
+}

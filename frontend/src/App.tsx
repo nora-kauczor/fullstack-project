@@ -7,10 +7,9 @@ import AllProductsPage
     from "./components/AllProductsPage.tsx";
 import ShoppingListPage
     from "./components/ShoppingListPage.tsx";
-import Login from "./components/Login.tsx";
 import ProtectedRoute
     from "./components/ProtectedRoute.tsx";
-import Navbar from "./components/Navbar.tsx";
+import NavBar from "./components/NavBar.tsx";
 
 
 function App() {
@@ -29,36 +28,29 @@ function App() {
             .catch(error => console.error(error))
     }
 
-    function login() {
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
-        window.open(host + '/oauth2/authorization/github', '_self')
-    }
+    const [userName, setUserName] = useState<string>("anonymousUser")
 
-    function logout() {
-        setUserName("anonymousUser")
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
-        window.open(host + '/api/auth/logout', '_self')
-    }
-
-    const [userName, setUserName] = useState<string>("")
     useEffect(() => {
         axios.get("/api/groceries/auth/me")
             .then(response => setUserName(response.data))
     }, [userName]);
 
+    function setUserNameToAnonymous():void{
+        setUserName("anonymousUser")
+    }
 
     return (
-        <>
-            <Navbar login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>
+        <div id={"app"}>
+            <NavBar loggedIn={userName !== "anonymousUser" && userName!=""} setUserNameToAnonymous={setUserNameToAnonymous}/>
+            <div id={"app-space"}></div >
             <Routes>
-                <Route path={"/"} element={<Login
-                    login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>}/>
+                <Route path={"/" +
+                    ""}
+                       element={<AllProductsPage
+                           groceries={groceries}
+                           updateQuantity={updateQuantity}
+                       />}/>
                 <Route element={<ProtectedRoute userName={userName}/>}>
-                    <Route path={"/allproducts"}
-                           element={<AllProductsPage
-                               groceries={groceries}
-                               updateQuantity={updateQuantity}
-                           />}/>
                     <Route path={"/shoppinglist"}
                            element={<ShoppingListPage
                                groceries={groceries}
@@ -69,7 +61,7 @@ function App() {
             {userName !== "anonymousUser" && userName != "" ?
                 <p>You are logged in as {userName}</p> :
                 <p>You are not logged in</p>}
-        </>
+        </div>
     )
 }
 

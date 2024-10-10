@@ -34,7 +34,7 @@ export default function GroceryCard(props:Readonly<Props>) {
                    min={"0"} max={"100"}
                    step={"1"}/>
             <h3 id={"grocery-card-name"}>{props.grocery.name}</h3>
-            <p id={"grocery-card-price"}>{props.grocery.price} €</p>
+            <p id={"grocery-card-price"}>{props.grocery.price.toFixed(2)} €</p>
             <button onClick={handleClick} id={"grocery-card-button"}>
                 {getButtonText()}
             </button>
