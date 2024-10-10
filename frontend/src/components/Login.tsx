@@ -19,12 +19,24 @@ export default function Login(props: Readonly<Props>) {
         window.open(host + '/api/auth/logout', '_self')
     }
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter" || event.key === " ") {
+            if (props.loggedIn) {
+                logout()
+            } else {
+                login()
+            }
+        }
+    }
+
     return (
         <div id={"login"}>
             {props.loggedIn ? <p
-                    onClick={logout}>Logout</p>
+                    onClick={logout}
+                    onKeyDown={handleKeyDown}>Logout</p>
                 : <p
-                    onClick={login}>Login</p>}
+                    onClick={login}
+                    onKeyDown={handleKeyDown}>Login</p>}
         </div>
 
     )
