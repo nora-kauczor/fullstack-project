@@ -7,7 +7,6 @@ import AllProductsPage
     from "./components/AllProductsPage.tsx";
 import ShoppingListPage
     from "./components/ShoppingListPage.tsx";
-import Login from "./components/Login.tsx";
 import ProtectedRoute
     from "./components/ProtectedRoute.tsx";
 import NavBar from "./components/NavBar.tsx";
@@ -51,14 +50,13 @@ function App() {
         <>
             <NavBar login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>
             <Routes>
-                <Route path={"/"} element={<Login
-                    login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>}/>
+                <Route path={"/" +
+                    ""}
+                       element={<AllProductsPage
+                           groceries={groceries}
+                           updateQuantity={updateQuantity}
+                       />}/>
                 <Route element={<ProtectedRoute userName={userName}/>}>
-                    <Route path={"/allproducts"}
-                           element={<AllProductsPage
-                               groceries={groceries}
-                               updateQuantity={updateQuantity}
-                           />}/>
                     <Route path={"/shoppinglist"}
                            element={<ShoppingListPage
                                groceries={groceries}
