@@ -4,8 +4,7 @@ import {useEffect, useState} from "react";
 
 type Props = {
     groceries: Grocery[],
-    updateQuantity: (groceryId: string, newQuantity: number) => void,
-    logout?: () => void
+    updateQuantity: (groceryId: string, newQuantity: number) => void
 }
 export default function ShoppingListPage(props: Readonly<Props>) {
     const [total, setTotal] = useState<number>(0)

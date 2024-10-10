@@ -12,9 +12,10 @@ export default function GroceryCard(props:Readonly<Props>) {
     const [quantityDisplay, setQuantityDisplay] = useState<number>(props.grocery.quantity)
 
     function handleChange(event:React.ChangeEvent<HTMLInputElement>){
-        setQuantityDisplay(parseInt(event.target.value))
+        const newValue = parseInt(event.target.value)
+        setQuantityDisplay(newValue)
         if (props.isShoppingList){
-            props.updateQuantity(props.grocery.id, quantityDisplay)
+            props.updateQuantity(props.grocery.id, newValue)
         }
     }
     function handleClick():void{
