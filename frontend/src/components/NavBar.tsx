@@ -8,17 +8,15 @@ type Props = {
 }
 export default function NavBar(props: Props) {
     return (
-        <>
             <ul>
                 <li><Login loggedIn={props.loggedIn}
                            setUserNameToAnonymous={props.setUserNameToAnonymous}/></li>
                 {props.loggedIn &&
-                    <li><Link to={"/shoppinglist"}> Shopping
+                    <li><Link to={"/shoppinglist"} className={"login-link"}> Shopping
                         list </Link></li>}
-                <li><Link to={"/"}> All Products </Link>
+                <li><Link to={"/"} className={"login-link"}> All Products </Link>
                 </li>
             </ul>
-        </>
     )
 
 }

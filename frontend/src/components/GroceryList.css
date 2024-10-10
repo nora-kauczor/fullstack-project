@@ -1,1 +1,8 @@
-#grocery-list {display: flex}
+#grocery-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 0; margin: 0;
+}

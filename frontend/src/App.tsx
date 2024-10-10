@@ -40,8 +40,9 @@ function App() {
     }
 
     return (
-        <>
+        <div id={"app"}>
             <NavBar loggedIn={userName !== "anonymousUser" && userName!=""} setUserNameToAnonymous={setUserNameToAnonymous}/>
+            <div id={"app-space"}></div >
             <Routes>
                 <Route path={"/" +
                     ""}
@@ -60,7 +61,7 @@ function App() {
             {userName !== "anonymousUser" && userName != "" ?
                 <p>You are logged in as {userName}</p> :
                 <p>You are not logged in</p>}
-        </>
+        </div>
     )
 }
 

@@ -21,10 +21,10 @@ export default function Login(props: Readonly<Props>) {
 
     return (
         <div id={"login"}>
-            {props.loggedIn ? <button
-                    onClick={logout}>Logout</button>
-                : <button
-                    onClick={login}>Login</button>}
+            {props.loggedIn ? <p
+                    onClick={logout}>Logout</p>
+                : <p
+                    onClick={login}>Login</p>}
         </div>
 
     )

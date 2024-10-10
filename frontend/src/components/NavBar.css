@@ -1,12 +1,26 @@
 ul {
+    width: 100%;
     display: flex;
+    justify-content: space-evenly;
     margin: 0;
     padding: 0;
     list-style: none;
+    background-color: #2E6593;
+    color: white;
+    font-weight: bold;
 }
 
 li {
+    display: flex;
+    align-items: center;
+    font-size: 17px;
     margin: 0;
     padding: 0;
+
 }
 
+
+.login-link {
+    color: inherit;
+    font-weight: bold;
+}

@@ -2,8 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 5px;
-    border: 1px solid black;
-    padding: 0 2px;
+    gap: 1rem;
+    padding: 0 15px;
+    background-color: #E8D8E2;
+    font-size: 13px;
+    width: 90%;
 }
 
+#grocery-card-counter {width: 34px; padding: 1px; margin: 1px;}
+#grocery-card-name {width: 62px; text-align: left;}
+#grocery-card-button {background-color: darkmagenta; color: lightgoldenrodyellow}
