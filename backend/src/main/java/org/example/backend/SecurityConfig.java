@@ -2,6 +2,7 @@ package org.example.backend;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -21,7 +22,13 @@ public class SecurityConfig {
                         .requestMatchers("/api/groceries").permitAll()
                         .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .oauth2Login(a -> a.defaultSuccessUrl("http://localhost:5173/"));
+                .logout(logout -> logout.logoutSuccessUrl("http://localhost:5173/")
+                        .logoutUrl("/api/groceries/auth/me")) // TODO url anpassen
+                .oauth2Login(Customizer.withDefaults())
+
+
+        ;
+
         return httpSecurity.build();
     }
 

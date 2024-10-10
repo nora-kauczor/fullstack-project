@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -55,13 +56,24 @@ class GroceryControllerTest {
                         """));
     }
 
+    @DirtiesContext
+    @Test
+    void getGroceryById_shouldCauseErrorMessageOutput_whenCalledWithInvalidId() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/api/groceries/39")).andExpect(status().isNotFound())
+                .andExpect(content().json("""
+                       { "message": "ID not found."}
+                       """));
+    }
+
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void updateQuantity() throws Exception {
         Grocery apple = new Grocery("1", "Apple", 0.5, 0);
         groceryRepo.save(apple);
-        mvc.perform(MockMvcRequestBuilders.put("/api/groceries/update/1?quantity=4")).andExpect(status().isOk())
+        mvc.perform(MockMvcRequestBuilders.put("/api/groceries/update/1?quantity=4"))
+                .andExpect(status().isOk())
                 .andExpect(content().json("""
                         
                                     {
@@ -73,13 +85,19 @@ class GroceryControllerTest {
                         """));
     }
 
+
     @DirtiesContext
     @Test
-    void getGroceryById_shouldCauseErrorMessageOutput_whenCalledWithInvalidId() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/api/groceries/39")).andExpect(status().isNotFound())
-                .andExpect(content().json("""
-                       { "message": "ID not found."}
-                       """));
+    @WithMockUser
+    void updateQuantity_shouldReturn302_whenCalledWithInvalidCredentials() throws Exception {
+        Grocery apple = new Grocery("1", "Apple", 0.5, 0);
+        groceryRepo.save(apple);
+        mvc.perform(MockMvcRequestBuilders.put("/api/groceries/update/1?quantity=4"))
+                .andExpect(status().is(302));
     }
+
+
+
+
 
 }

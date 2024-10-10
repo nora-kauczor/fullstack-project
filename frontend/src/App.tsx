@@ -7,6 +7,7 @@ import AllProductsPage
     from "./components/AllProductsPage.tsx";
 import ShoppingListPage
     from "./components/ShoppingListPage.tsx";
+import LoginPage from "./components/LoginPage.tsx";
 
 
 function App() {
@@ -41,7 +42,8 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path={"/"}
+                <Route path={"/"} element={<LoginPage login={login}/>}/>
+                <Route path={"/dashboard"}
                        element={<AllProductsPage
                            groceries={groceries}
                            updateQuantity={updateQuantity}/>}/>
@@ -54,8 +56,6 @@ function App() {
                                groceries={groceries}
                                updateQuantity={updateQuantity}/>}/>}
             </Routes>
-            {userDisplay.length === 0 &&
-                <button onClick={login}>Login</button>}
             {userDisplay.length > 0 &&
                 <p>You are logged in as {userDisplay}</p>}
         </>
