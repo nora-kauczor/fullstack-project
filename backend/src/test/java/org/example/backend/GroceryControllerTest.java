@@ -88,7 +88,6 @@ class GroceryControllerTest {
 
     @DirtiesContext
     @Test
-    @WithMockUser
     void updateQuantity_shouldReturn302_whenCalledWithInvalidCredentials() throws Exception {
         Grocery apple = new Grocery("1", "Apple", 0.5, 0);
         groceryRepo.save(apple);
