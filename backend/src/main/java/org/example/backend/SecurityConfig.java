@@ -23,7 +23,7 @@ public class SecurityConfig {
                         .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .logout(logout -> logout.logoutSuccessUrl("http://localhost:5173/")
-                        .logoutUrl("/api/groceries/auth/me")) // TODO url anpassen
+                        .logoutUrl("/api/auth/logout"))
                 .oauth2Login(Customizer.withDefaults())
 
 

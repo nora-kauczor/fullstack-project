@@ -8,6 +8,8 @@ import AllProductsPage
 import ShoppingListPage
     from "./components/ShoppingListPage.tsx";
 import LoginPage from "./components/LoginPage.tsx";
+import ProtectedRoute
+    from "./components/ProtectedRoute.tsx";
 
 
 function App() {
@@ -26,38 +28,46 @@ function App() {
             .catch(error => console.error(error))
     }
 
-    const [userDisplay, setUserDisplay] = useState<string>("")
-
     function login() {
         const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
         window.open(host + '/oauth2/authorization/github', '_self')
     }
 
+    function logout() {
+        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
+        window.open(host + '/api/auth/logout', '_self')
+    }
+
+    const [userName, setUserName] = useState<string>("")
     useEffect(() => {
         axios.get("/api/groceries/auth/me")
-            .then(response => setUserDisplay(response.data))
+            .then(response => setUserName(response.data))
     }, []);
 
 
     return (
         <>
             <Routes>
-                <Route path={"/"} element={<LoginPage login={login}/>}/>
-                <Route path={"/dashboard"}
-                       element={<AllProductsPage
-                           groceries={groceries}
-                           updateQuantity={updateQuantity}/>}/>
-                {userDisplay.length === 0 ?
-                    <Route path={"/shoppinglist"}
-                           element={<h2>Please log
-                               in to see the shopping list.</h2>}/> :
+                <Route path={"/"} element={<LoginPage
+                    login={login}/>}/>
+
+                <Route path={"/"} element={<ProtectedRoute
+                    userName={userName}
+                />}>
+                    <Route path={"/allproducts"}
+                           element={<AllProductsPage
+                               groceries={groceries}
+                               updateQuantity={updateQuantity}
+                               logout={logout}/>}/>
                     <Route path={"/shoppinglist"}
                            element={<ShoppingListPage
                                groceries={groceries}
-                               updateQuantity={updateQuantity}/>}/>}
+                               updateQuantity={updateQuantity}
+                               logout={logout}/>}/>
+                </Route>
             </Routes>
-            {userDisplay.length > 0 &&
-                <p>You are logged in as {userDisplay}</p>}
+            {userName !== "anonymousUser" && userName &&
+                <p>You are logged in as {userName}</p>}
         </>
     )
 }

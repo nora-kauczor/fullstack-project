@@ -13,7 +13,7 @@ public class UserController {
     @GetMapping
     public String getMe(@AuthenticationPrincipal OAuth2User user)
     {
-        return user == null ? "" : user.getAttributes()
+        return user == null ? "anonymousUser" : user.getAttributes()
                 .get("login")
                 .toString();
     }
