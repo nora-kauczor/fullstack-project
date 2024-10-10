@@ -1,12 +1,13 @@
 import {Link} from "react-router-dom";
 import Login from "./Login.tsx";
+import './NavBar.css'
 
 type Props = {
     login: () => void,
     logout: () => void,
     loggedIn: boolean
 }
-export default function Navbar (props:Props){
+export default function NavBar (props:Props){
    return(
         <>
             <ul>

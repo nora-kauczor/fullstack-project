@@ -10,7 +10,7 @@ import ShoppingListPage
 import Login from "./components/Login.tsx";
 import ProtectedRoute
     from "./components/ProtectedRoute.tsx";
-import Navbar from "./components/Navbar.tsx";
+import NavBar from "./components/NavBar.tsx";
 
 
 function App() {
@@ -49,7 +49,7 @@ function App() {
 
     return (
         <>
-            <Navbar login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>
+            <NavBar login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>
             <Routes>
                 <Route path={"/"} element={<Login
                     login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>}/>

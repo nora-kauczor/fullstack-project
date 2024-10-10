@@ -1,3 +1,4 @@
+import './NavBar.css'
 type Props = {
     login: () => void,
     logout: () => void,
