@@ -28,27 +28,20 @@ function App() {
             .catch(error => console.error(error))
     }
 
-    function login() {
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
-        window.open(host + '/oauth2/authorization/github', '_self')
-    }
+    const [userName, setUserName] = useState<string>("anonymousUser")
 
-    function logout() {
-        setUserName("anonymousUser")
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
-        window.open(host + '/api/auth/logout', '_self')
-    }
-
-    const [userName, setUserName] = useState<string>("")
     useEffect(() => {
         axios.get("/api/groceries/auth/me")
             .then(response => setUserName(response.data))
     }, [userName]);
 
+    function setUserNameToAnonymous():void{
+        setUserName("anonymousUser")
+    }
 
     return (
         <>
-            <NavBar login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>
+            <NavBar loggedIn={userName !== "anonymousUser" && userName!=""} setUserNameToAnonymous={setUserNameToAnonymous}/>
             <Routes>
                 <Route path={"/" +
                     ""}

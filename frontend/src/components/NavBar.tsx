@@ -3,17 +3,20 @@ import Login from "./Login.tsx";
 import './NavBar.css'
 
 type Props = {
-    login: () => void,
-    logout: () => void,
-    loggedIn: boolean
+    loggedIn: boolean,
+    setUserNameToAnonymous: () => void,
 }
-export default function NavBar (props:Props){
-   return(
+export default function NavBar(props: Props) {
+    return (
         <>
             <ul>
-                <li> <Login login={props.login} logout={props.logout} loggedIn={props.loggedIn}/></li>
-                <li> <Link to={"/shoppinglist"}> Shopping list </Link></li>
-                <li> <Link to={"/allproducts"}> All Products </Link></li>
+                <li><Login loggedIn={props.loggedIn}
+                           setUserNameToAnonymous={props.setUserNameToAnonymous}/></li>
+                {props.loggedIn &&
+                    <li><Link to={"/shoppinglist"}> Shopping
+                        list </Link></li>}
+                <li><Link to={"/"}> All Products </Link>
+                </li>
             </ul>
         </>
     )
