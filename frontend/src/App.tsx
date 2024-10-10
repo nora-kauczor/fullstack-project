@@ -7,9 +7,10 @@ import AllProductsPage
     from "./components/AllProductsPage.tsx";
 import ShoppingListPage
     from "./components/ShoppingListPage.tsx";
-import LoginPage from "./components/LoginPage.tsx";
+import Login from "./components/Login.tsx";
 import ProtectedRoute
     from "./components/ProtectedRoute.tsx";
+import Navbar from "./components/Navbar.tsx";
 
 
 function App() {
@@ -43,33 +44,31 @@ function App() {
     useEffect(() => {
         axios.get("/api/groceries/auth/me")
             .then(response => setUserName(response.data))
-    }, []);
+    }, [userName]);
 
 
     return (
         <>
+            <Navbar login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>
             <Routes>
-                {/*{userName === "anonymousUser" || !userName && */}
-                    <Route path={"/"} element={<LoginPage
-                    login={login}/>}/>
-                 {/*}*/}
+                <Route path={"/"} element={<Login
+                    login={login} logout={logout} loggedIn={userName !== "anonymousUser" && userName!=""}/>}/>
                 <Route element={<ProtectedRoute userName={userName}/>}>
                     <Route path={"/allproducts"}
                            element={<AllProductsPage
                                groceries={groceries}
                                updateQuantity={updateQuantity}
-                               logout={logout}/>}/>
+                           />}/>
                     <Route path={"/shoppinglist"}
                            element={<ShoppingListPage
                                groceries={groceries}
                                updateQuantity={updateQuantity}
-                               logout={logout}/>}/>
+                               />}/>
                 </Route>
             </Routes>
-            {userName !== "anonymousUser" && userName &&
-                <p>You are logged in as {userName}</p>}
-            {userName !== "anonymousUser" && userName &&
-                <button onClick={logout}>Logout</button>}
+            {userName !== "anonymousUser" && userName != "" ?
+                <p>You are logged in as {userName}</p> :
+                <p>You are not logged in</p>}
         </>
     )
 }

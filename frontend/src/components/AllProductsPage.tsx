@@ -3,8 +3,7 @@ import {Grocery} from "../types/Grocery.ts";
 
 type Props = {
     groceries: Grocery[],
-    updateQuantity: (groceryId: string, newQuantity: number) => void,
-    logout?: () => void
+    updateQuantity: (groceryId: string, newQuantity: number) => void
 }
 export default function AllProductsPage(props: Readonly<Props>) {
     return (<div id="all-products-page">
