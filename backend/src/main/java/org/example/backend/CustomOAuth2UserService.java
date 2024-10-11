@@ -1,6 +1,7 @@
 package org.example.backend;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -26,7 +27,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     AppUser newUser = new AppUser(
                             user.getName(),
                             user.getAttributes().get("login").toString(),
-                            user.getAttributes().get("avatar_url").toString()
+                            user.getAttributes().get("avatar_url").toString(),
+                            "USER"
                     );
                     return userRepo.save(newUser);
                 }

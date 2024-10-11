@@ -17,7 +17,7 @@ public class UserController {
     @GetMapping
     public AppUser getMe(@AuthenticationPrincipal OAuth2User user) {
         return user == null ?
-                new AppUser("NotFound", "anonymousUser", null)
+                new AppUser("NotFound", "anonymousUser", null, null)
                 :
                 userRepo.findById(user.getName()).orElseThrow();
     }
