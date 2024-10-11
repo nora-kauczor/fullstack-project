@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ErrorMessage handleGlobalException(Exception e) {
-        ErrorMessage errorMessage = new ErrorMessage("An error has occurred" + e.getMessage());
+        ErrorMessage errorMessage = new ErrorMessage("An error has occurred. " + e.getMessage());
         return errorMessage;
     }
 

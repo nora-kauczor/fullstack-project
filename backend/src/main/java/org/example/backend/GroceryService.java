@@ -16,11 +16,11 @@ public class GroceryService {
     }
 
     public Grocery getGroceryById(String groceryId){
-        return groceryRepo.findById(groceryId).orElseThrow(NoSuchElementException::new);
+        return groceryRepo.findById(groceryId).orElseThrow();
     }
 
     public Grocery updateQuantity(String groceryId, int quantity){
-        Grocery originalGrocery = groceryRepo.findById(groceryId).orElseThrow(NoSuchElementException::new);
+        Grocery originalGrocery = groceryRepo.findById(groceryId).orElseThrow();
         return groceryRepo.save(new Grocery(groceryId, originalGrocery.name(), originalGrocery.price(), quantity));
     }
 }
