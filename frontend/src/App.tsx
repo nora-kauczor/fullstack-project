@@ -10,6 +10,7 @@ import ShoppingListPage
 import ProtectedRoute
     from "./components/ProtectedRoute.tsx";
 import NavBar from "./components/NavBar.tsx";
+import LoginPage from "./components/LoginPage.tsx";
 
 
 function App() {
@@ -35,29 +36,40 @@ function App() {
             .then(response => setUserName(response.data.userName))
     }, [userName]);
 
-    function setUserNameToAnonymous():void{
+    function setUserNameToAnonymous(): void {
         setUserName("anonymousUser")
     }
 
     return (
         <div id={"app"}>
-            <NavBar loggedIn={userName !== "anonymousUser" && userName!=""} setUserNameToAnonymous={setUserNameToAnonymous}/>
-            <div id={"app-space"}></div >
+            {userName !== "anonymousUser" && userName &&
+                <NavBar
+                    setUserNameToAnonymous={setUserNameToAnonymous}/>}
+
+            <div id={"app-space"}></div>
             <Routes>
-                <Route path={"/" +
-                    ""}
-                       element={<AllProductsPage
-                           groceries={groceries}
-                           updateQuantity={updateQuantity}
-                       />}/>
-                <Route element={<ProtectedRoute userName={userName}/>}>
+
+                {!userName || userName === "anonymousUser" &&
+                    <Route path={"/"}
+                           element={<LoginPage/>}/>}
+
+                <Route element={<ProtectedRoute
+                    userName={userName}/>}>
+
+                    <Route path={"/"}
+                           element={<AllProductsPage
+                               groceries={groceries}
+                               updateQuantity={updateQuantity}
+                           />}/>
+
                     <Route path={"/shoppinglist"}
                            element={<ShoppingListPage
                                groceries={groceries}
                                updateQuantity={updateQuantity}
-                               />}/>
+                           />}/>
                 </Route>
             </Routes>
+
             {userName !== "anonymousUser" && userName != "" ?
                 <p>You are logged in as {userName}</p> :
                 <p>You are not logged in</p>}

@@ -10,3 +10,10 @@ p {
     padding: 0;
 
 }
+
+button {
+    margin: 0;
+    padding: 0;
+    background-color: #2E6593;
+    color: white;
+}
