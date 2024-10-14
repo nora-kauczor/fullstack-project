@@ -1,12 +1,28 @@
 #grocery-card {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    gap: 1rem;
     padding: 0 15px;
     background-color: #E8D8E2;
     font-size: 13px;
+    width: 100%;
+    height: 80px;
+}
+
+#regular-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    background-color: #E8D8E2;
     width: 90%;
+}
+
+.oldquantity{
+    padding: 0;
+    margin: 0;
 }
 
 #grocery-card-counter {width: 34px; padding: 1px; margin: 1px;}
