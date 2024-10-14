@@ -32,7 +32,7 @@ function App() {
 
     useEffect(() => {
         axios.get("/api/groceries/auth/me")
-            .then(response => setUserName(response.data))
+            .then(response => setUserName(response.data.userName))
     }, [userName]);
 
     function setUserNameToAnonymous():void{
