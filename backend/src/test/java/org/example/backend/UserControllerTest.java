@@ -19,14 +19,21 @@ class UserControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @Autowired
+    private UserRepo userRepo;
+
     @DirtiesContext
     @Test
     void getMe_shouldReturnOkAndUsername_whenLoggedIn() throws Exception {
+        AppUser testUser = new AppUser("user", "test-username", null, null);
+        userRepo.save(testUser);
         mvc.perform(MockMvcRequestBuilders.get("/api/groceries/auth/me")
-                        .with(oidcLogin().userInfoToken(token -> token
-                                .claim("login", "test-username"))))
+                        .with(oidcLogin().userInfoToken(token ->
+                            token.claim("login", "test-username"))))
                 .andExpect(status().isOk())
-                .andExpect(content().string("test-username"));
+                .andExpect(content().json("""
+                        {"id":"user","userName":"test-username","avatarUrl":null,"authority":null}
+                        """));
     }
 
     @DirtiesContext
@@ -34,6 +41,8 @@ class UserControllerTest {
     void getMe_shouldReturn302_whenNotLoggedIn() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/api/groceries/auth/me"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("anonymousUser"));
+                .andExpect(content().json("""
+                        {"id":"NotFound","userName":"anonymousUser","avatarUrl":null,"authority":null}
+                        """));
     }
 }

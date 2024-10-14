@@ -42,9 +42,7 @@ function App() {
     const [userName, setUserName] = useState<string>("")
     useEffect(() => {
         axios.get("/api/groceries/auth/me")
-            .then(response => {
-                setUserName(response.data)
-            })
+            .then(response => setUserName(response.data.userName))
     }, [userName]);
 
 
@@ -73,4 +71,4 @@ function App() {
     )
 }
 
-            export default App
+export default App
